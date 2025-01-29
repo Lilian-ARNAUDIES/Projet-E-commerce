@@ -1,0 +1,60 @@
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: node-server
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+      - ./server/certs:/app/certs
+    env_file:
+      - ./server/.env
+    depends_on:
+      - postgres
+    networks:
+      - backend
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: next-client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      NEXT_PUBLIC_API_URL: "https://localhost:3000"
+    networks:
+      - frontend
+    depends_on:
+      - server
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres_container
+    restart: always
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+
+
+volumes:
+  postgres_data:
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge

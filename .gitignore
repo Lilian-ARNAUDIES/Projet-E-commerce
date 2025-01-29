@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environnement
+.env
+.env*.local
+
+# Builds et configurations
+.next/
+dist/
+out/
+
+# Certificats
+/client/certificates/
+/server/certs/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Logs et débogage
+*.log
+logs/
+npm-debug.log*
+
+# Éditeurs et IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Couverture de tests
+coverage/
+.nyc_output/
+
+# Docker (si nécessaire)
+**/docker-compose.override.yml
