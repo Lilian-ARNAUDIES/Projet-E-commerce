@@ -25,7 +25,7 @@ export default function Success() {
         setTotalPrice(totalPriceValue); // 🔥 Stocker dans le state
 
         // 🔥 Envoyer le total price au serveur
-        const res = await fetch('https://localhost:8000/api/cart/checkout', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/cart/checkout`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ userId, totalPrice: totalPriceValue }), // On envoie `totalPrice`

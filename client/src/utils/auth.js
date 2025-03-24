@@ -7,7 +7,7 @@ export const getAuthToken = () => {
 
 // ✅ Vérification et ajout du token
 export const axiosAuthInstance = axios.create({
-  baseURL: 'https://localhost:8000',
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true, // ✅ Permet d'envoyer les cookies si nécessaires
 });
 
@@ -41,7 +41,7 @@ export async function registerUser(lastname, firstname, email, password) {
     const newUser = { lastname, firstname, email, password, role: "client" }; // ✅ Ajout du rôle par défaut
     console.log("📡 Envoi des données d'inscription :", newUser);
 
-    const response = await fetch('https://localhost:8000/api/users', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newUser),
@@ -71,7 +71,7 @@ export const getUserAccount = async () => {
   const token = localStorage.getItem('authToken');
   if (!token) throw new Error('Utilisateur non authentifié');
 
-  const res = await fetch('https://localhost:8000/api/users/account', {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/account`, {
     method: 'GET',
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -87,7 +87,7 @@ export const getUserAccount = async () => {
 
 export const loginUser = async (email, password) => {
   try {
-    const res = await fetch('https://localhost:8000/api/users/login', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),

@@ -7,7 +7,7 @@ export default function CheckoutButton({ cartItems }) {
   const handleCheckout = async () => {
     setLoading(true);
     try {
-      const res = await fetch('https://localhost:8000/api/payment/create-checkout-session', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/payment/create-checkout-session`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -16,8 +16,8 @@ export default function CheckoutButton({ cartItems }) {
             price: item.price,
             quantity: item.quantity,
           })),
-          successUrl: 'https://localhost:3000/success',
-          cancelUrl: 'https://localhost:3000/cancel',
+          successUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/success`,
+          cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/cancel`,
         }),
       });
 

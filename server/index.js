@@ -19,7 +19,7 @@ const errorHandler = require('./middlewares/errorHandler');
 const app = express();
 
 // Middleware
-app.use(cors({ origin: 'https://localhost:3000', credentials: true }));
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
 
 app.use(fileUpload({
@@ -58,5 +58,5 @@ const sslOptions = {
 // Lancer le serveur HTTPS
 const PORT = process.env.PORT;
 https.createServer(sslOptions, app).listen(PORT, () => {
-  console.log(`Server running securely on https://localhost:${PORT}`);
+  console.log(`Server running securely on ${process.env.SERVER_URL}:${PORT}`);
 });

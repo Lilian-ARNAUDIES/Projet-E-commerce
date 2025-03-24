@@ -14,7 +14,7 @@ export default function Login() {
     const token = localStorage.getItem('authToken');
     if (!token) return;
 
-    fetch('https://localhost:8000/api/users/account', {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/account`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
