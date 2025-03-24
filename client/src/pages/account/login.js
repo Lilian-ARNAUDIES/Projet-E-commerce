@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { loginUser } from '../../utils/auth';
 
@@ -6,7 +6,22 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [user, setUser] = useState(null);
+
   const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (!token) return;
+
+    fetch('https://localhost:8000/api/users/account', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => setUser(data.user));
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,8 +40,12 @@ export default function Login() {
     }
   };
 
+  const goToRegister = () => {
+    router.push('/account/register');
+  };
+
   return (
-    <div className="container mt-5">
+    <div className="container">
       <h1>Connexion</h1>
       {error && <p className="text-danger">{error}</p>}
       <form onSubmit={handleLogin}>
@@ -39,7 +58,7 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="mb-3">
+        <div className="">
           <label>Mot de passe</label>
           <input
             type="password"
@@ -48,7 +67,21 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit" className="btn btn-primary">Se connecter</button>
+        <button
+            type="button"
+            className="btn btn-link p-0 mb-4"
+            onClick={() => router.push('/account/forgot-password')}
+          >
+            Mot de passe oublié ?
+          </button>
+        <div className="d-flex gap-2">
+          <button type="submit" className="btn btn-primary">
+            Se connecter
+          </button>
+          <button type="button" onClick={goToRegister} className="btn btn-secondary">
+            S’inscrire
+          </button>
+        </div>
       </form>
     </div>
   );

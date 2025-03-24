@@ -5,13 +5,16 @@ const { getOrders,
         createOrder, 
         updateOrder, 
         deleteOrder,
-        getOrdersByUser,
         updateOrderStatus,
         cancelOrder,
+        getOrderItems,
 } = require('../controllers/orderController');
 
 // GET all orders
 router.get('/', getOrders);
+
+// GET order items by order ID
+router.get('/:id/items', getOrderItems);
 
 // GET a single order by ID
 router.get('/:id', getOrderById);
@@ -25,8 +28,6 @@ router.put('/:id', updateOrder);
 // DELETE an order
 router.delete('/:id', deleteOrder);
 
-// GET all orders for a user
-router.get('/', getOrdersByUser);
 
 // PUT update the status of an order
 router.put('/:id/status', updateOrderStatus);

@@ -8,8 +8,9 @@ services:
       - "8000:8000"
     volumes:
       - ./server:/app
-      - /app/node_modules
+      - node_modules:/app/node_modules
       - ./server/certs:/app/certs
+      - ./server/uploads:/app/uploads
     env_file:
       - ./server/.env
     depends_on:
@@ -36,7 +37,7 @@ services:
 
   postgres:
     image: postgres:latest
-    container_name: postgres_container
+    container_name: postgres-container
     restart: always
     environment:
       POSTGRES_USER: myuser
@@ -52,6 +53,7 @@ services:
 
 volumes:
   postgres_data:
+  node_modules:
 
 networks:
   frontend:

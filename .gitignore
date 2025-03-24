@@ -36,3 +36,6 @@ coverage/
 
 # Docker (si nécessaire)
 **/docker-compose.override.yml
+
+*.sql
+*.png

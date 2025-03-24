@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import { registerUser } from '../../utils/auth';
 
 export default function Register() {
-  const [name, setName] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [firstname, setFirstname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -11,20 +12,22 @@ export default function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    try {
-      const success = await registerUser(name, email, password);
-      if (success) {
-        router.push('/account'); // Redirige vers la page de compte
-      } else {
-        setError('Erreur lors de l’inscription');
-      }
-    } catch (err) {
+
+    const { success, token } = await registerUser(firstname, lastname, email, password);
+
+    if (success && token) {
+      // 1. Stocker le token (ex. dans localStorage)
+      localStorage.setItem('authToken', token);
+
+      // 2. Rediriger
+      router.push('/account');
+    } else {
       setError('Erreur lors de l’inscription');
     }
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container">
       <h1>Inscription</h1>
       {error && <p className="text-danger">{error}</p>}
       <form onSubmit={handleRegister}>
@@ -33,8 +36,17 @@ export default function Register() {
           <input
             type="text"
             className="form-control"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={lastname}
+            onChange={(e) => setLastname(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <label>Prénom</label>
+          <input
+            type="text"
+            className="form-control"
+            value={firstname}
+            onChange={(e) => setFirstname(e.target.value)}
           />
         </div>
         <div className="mb-3">

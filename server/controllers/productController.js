@@ -27,10 +27,16 @@ exports.getProductById = async (req, res, next) => {
 // Create a new product
 exports.createProduct = async (req, res, next) => {
   try {
-    const { name, price, description } = req.body;
+  const { name, price, stock, description, image, category_id } = req.body;
+    if (!name || !price || !description || !image) {
+      return res.status(400).json({ message: 'Champs requis manquants' });
+    }
+    const stockInt = stock ? parseInt(stock, 10) : undefined;
+    const priceFloat = parseFloat(price);
+
     const result = await db.query(
-      'INSERT INTO products (name, price, description) VALUES ($1, $2, $3) RETURNING *',
-      [name, price, description]
+      'INSERT INTO products (name, price, stock, description, image, category_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+      [name, priceFloat, stockInt, description, image, category_id || null]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
@@ -42,10 +48,10 @@ exports.createProduct = async (req, res, next) => {
 exports.updateProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { name, price, description } = req.body;
+    const { name, price, description, image, category_id } = req.body;
     const result = await db.query(
-      'UPDATE products SET name = $1, price = $2, description = $3 WHERE id = $4 RETURNING *',
-      [name, price, description, id]
+      'UPDATE products SET name = $1, price = $2, description = $3, image = $4, category_id = $5 WHERE id = $6 RETURNING *',
+      [name, price, description, image, category_id || null, id]
     );
     res.json(result.rows[0]);
   } catch (err) {

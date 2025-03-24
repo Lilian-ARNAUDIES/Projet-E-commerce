@@ -5,7 +5,7 @@ FROM node:22-bullseye
 WORKDIR /app
 
 # Copier les fichiers nécessaires
-COPY package.json package-lock.json ./
+COPY package*.json package-lock.json ./
 
 # Installer les dépendances
 RUN npm install

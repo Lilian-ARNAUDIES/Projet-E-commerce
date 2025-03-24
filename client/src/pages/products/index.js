@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import ProductCard from '../../components/ProductCard';
 import { fetchProducts } from '../../utils/api';
 
@@ -10,12 +11,14 @@ export default function Products() {
   }, []);
 
   return (
-    <div className="container mt-5">
+    <div className="container">
       <h1>Nos Produits</h1>
       <div className="row">
         {products.map((product) => (
           <div key={product.id} className="col-md-4">
-            <ProductCard product={product} />
+            <Link href={`/products/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <ProductCard product={product} />
+            </Link>
           </div>
         ))}
       </div>
