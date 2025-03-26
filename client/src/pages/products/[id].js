@@ -53,15 +53,27 @@ export default function ProductDetail() {
   };
 
   if (!product) return <p>Chargement...</p>;
-
+ 
   return (
-    <div className="container">
-      <h1>{product.name}</h1>
-      <p>{product.description}</p>
-      <p>Prix : {product.price} €</p>
-      <button className="btn btn-primary" onClick={handleAddToCart}>
-        Ajouter au panier
-      </button>
+    <div className="container py-5">
+      <div className="row g-5 align-items-center">
+        <div className="col-md-6 text-center">
+          <img
+            src={`/uploads/${product.image}`}
+            alt={product.name}
+            className="img-fluid rounded shadow"
+            style={{ maxHeight: '500px', objectFit: 'cover' }}
+          />
+        </div>
+        <div className="col-md-6">
+          <h1 className="mb-3">{product.name}</h1>
+          <p className="text-muted mb-4">{product.description}</p>
+          <h3 className="text-primary mb-4">{product.price} €</h3>
+          <button className="btn btn-lg btn-secondary" onClick={handleAddToCart}>
+            Ajouter au panier
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

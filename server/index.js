@@ -9,7 +9,7 @@ const productRoutes = require('./routes/products');
 const userRoutes = require('./routes/users');
 const orderRoutes = require('./routes/orders');
 const cartRoutes = require('./routes/cart');
-// const adminImagesRouter = require('./routes/adminImages');
+const categoryRoutes = require('./routes/category');
 const paymentRoutes = require('./routes/payment');
 const adminRoutes = require('./routes/adminRoutes');
 const authRoutes = require('./routes/auth');
@@ -38,7 +38,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/cart', cartRoutes);
-// app.use('/admin', adminImagesRouter);
+app.use('/api/categories', categoryRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/payment', paymentRoutes);
 
