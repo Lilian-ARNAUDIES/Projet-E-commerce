@@ -1,5 +1,4 @@
 const express = require('express');
-const https = require('https');
 const fs = require('fs');
 const cors = require('cors');
 const path = require('path');
@@ -18,6 +17,9 @@ const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 
+app.get('/', (req, res) => {
+  res.send('API is running and reachable via Cloudflare Tunnel');
+});
 // Middleware
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
@@ -25,13 +27,6 @@ app.use(express.json());
 app.use(fileUpload({
   createParentPath: true,
 }));
-
-app.use((req, res, next) => {
-  if (!req.secure) {
-    return res.redirect(`https://${req.headers.host}${req.url}`);
-  }
-  next();
-});
 
 // Routes
 app.use('/api/products', productRoutes);
@@ -49,14 +44,9 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Error Handling
 app.use(errorHandler);
 
-// Charger les certificats SSL
-const sslOptions = {
-  key: fs.readFileSync('./certs/server.key'), // Clé privée
-  cert: fs.readFileSync('./certs/server.crt'), // Certificat public
-};
 
 // Lancer le serveur HTTPS
 const PORT = process.env.PORT;
-https.createServer(sslOptions, app).listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server running securely on ${process.env.SERVER_URL}:${PORT}`);
 });

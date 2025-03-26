@@ -13,8 +13,10 @@ RUN npm install
 # Copier tout le code
 COPY . .
 
+RUN npm run build
+
 # Exposer le port 3000
 EXPOSE 3000
 
 # Lancer le mode développement avec HTTPS
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
