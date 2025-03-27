@@ -7,18 +7,23 @@ export default function CategoryPage() {
   const { id } = router.query;
   const [categoryName, setCategoryName] = useState('');
   const [products, setProducts] = useState([]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!id) return;
 
-    fetch(`https://localhost:8000/api/categories`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`)
       .then(res => res.json())
       .then(categories => {
         const category = categories.find(cat => String(cat.id) === id);
         if (category) setCategoryName(category.name);
       });
 
-    fetch(`https://localhost:8000/api/products`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`)
       .then(res => res.json())
       .then(data => {
         const result = Array.isArray(data) ? data : data.data;
@@ -26,6 +31,10 @@ export default function CategoryPage() {
         setProducts(filtered);
       });
   }, [id]);
+
+  if (!mounted || !id) {
+    return <p className="text-center">Chargement...</p>;
+  }
 
   return (
     <div className="container">

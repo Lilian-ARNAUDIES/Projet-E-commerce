@@ -6,12 +6,12 @@ export default function MentionsLegales() {
         <section class="mb-5">
           <h2>Éditeur du Site</h2>
           <p>
-            <strong>Raison sociale :</strong> E-Commerce SAS (société fictive)<br />
+            <strong>Raison sociale :</strong> FitGear SAS (société fictive)<br />
             <strong>Adresse :</strong> 123 Rue du Commerce, 75000 Paris<br />
             <strong>Capital social :</strong> 10 000€<br />
             <strong>SIRET :</strong> 123 456 789 00000 (fictif)<br />
             <strong>Responsable de la publication :</strong> [Nom du responsable]<br />
-            <strong>Contact :</strong> contact@ecommerce.fr / 01 23 45 67 89
+            <strong>Contact :</strong> contact@fitgear.fr / 01 23 45 67 89
           </p>
         </section>
 
@@ -38,14 +38,14 @@ export default function MentionsLegales() {
           <h2>Limitation de responsabilité</h2>
           <p>
             Les informations publiées sur le site sont fournies à titre indicatif.
-            E-Commerce SAS s’efforce de maintenir le site à jour et se réserve
+            FitGear SAS s’efforce de maintenir le site à jour et se réserve
             le droit de modifier, à tout moment et sans préavis, son contenu ou
-            les présentes mentions légales. Toutefois, E-Commerce SAS ne saurait
+            les présentes mentions légales. Toutefois, FitGear SAS ne saurait
             garantir l’exactitude, la précision ou l’exhaustivité des informations
             diffusées sur le site.
           </p>
           <p>
-            E-Commerce SAS ne saurait être tenu pour responsable des dommages, de
+            FitGear SAS ne saurait être tenu pour responsable des dommages, de
             quelque nature que ce soit, résultant de l’accès et/ou de l’utilisation
             du site.
           </p>

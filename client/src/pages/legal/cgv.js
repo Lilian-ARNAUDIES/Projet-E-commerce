@@ -7,7 +7,7 @@ export default function CGV() {
           <h2>Préambule</h2>
           <p>
             Les présentes Conditions Générales de Vente (CGV) régissent les relations
-            contractuelles entre E-Commerce SAS (ci-après “la société”) et toute
+            contractuelles entre FitGear SAS (ci-après “la société”) et toute
             personne (ci-après “le Client”) souhaitant consulter des informations
             sur le site vitrine proposant des produits liés à la musculation
             (haltères, poids, machines, etc.). 
@@ -83,7 +83,7 @@ export default function CGV() {
             dehors du site, le Client dispose d’un délai de rétractation de 14 jours
             à compter de la réception du produit. Toute réclamation ou demande de
             rétractation devra se faire directement auprès de la société par voie
-            postale ou par email à <strong>contact@ecommerce.fr</strong>.
+            postale ou par email à <strong>contact@fitgear.fr</strong>.
           </p>
         </section>
 

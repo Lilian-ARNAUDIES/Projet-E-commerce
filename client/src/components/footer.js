@@ -27,10 +27,10 @@ export default function LegalFooter() {
           <Col md={4} className="mb-4">
             <h5>Entreprise</h5>
             <div className="">
-                <p className="mb-1">E-Commerce SAS</p>
+                <p className="mb-1">FitGear SAS</p>
                 <p className="mb-1">123 Rue du Commerce</p>
                 <p className="mb-1">75000 Paris</p>
-                <p className="mb-1">contact@ecommerce.fr</p>
+                <p className="mb-1">contact@fitgear.fr</p>
                 <p className="mb-0">01 23 45 67 89</p>
             </div>
           </Col>
@@ -39,7 +39,7 @@ export default function LegalFooter() {
         <Row className="mt-4 border-top pt-3">
           <Col className="text-center text-md-start">
             <p className="mb-0">
-              © {new Date().getFullYear()} E-Commerce - Tous droits réservés
+              © {new Date().getFullYear()} FitGear - Tous droits réservés
             </p>
           </Col>
         </Row>

@@ -5,7 +5,7 @@ export default function Categories() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch('https://localhost:8000/api/categories')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`)
       .then((res) => res.json())
       .then((data) => {
         const result = Array.isArray(data) ? data : data.data;

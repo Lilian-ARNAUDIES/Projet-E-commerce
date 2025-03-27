@@ -7,7 +7,7 @@ export default function Confidentialite() {
           <h2>Introduction</h2>
           <p>
             La présente Politique de Confidentialité décrit la manière dont
-            <strong> E-Commerce SAS</strong> (ci-après “la société”) collecte,
+            <strong> FitGear SAS</strong> (ci-après “la société”) collecte,
             utilise et protège vos données personnelles lorsque vous visitez
             le site proposant des produits de musculation à titre de démonstration
             (sans vente en ligne).
@@ -95,7 +95,7 @@ export default function Confidentialite() {
           </ul>
           <p>
             Pour exercer vos droits, vous pouvez contacter la société par email à
-            <strong>contact@ecommerce.fr</strong>.
+            <strong>contact@fitgear.fr</strong>.
           </p>
         </section>
 
@@ -116,9 +116,9 @@ export default function Confidentialite() {
             droits, vous pouvez nous contacter à l’adresse suivante :
           </p>
           <address>
-            <strong>E-Commerce SAS</strong><br />
+            <strong>FitGear SAS</strong><br />
             123 Rue du Commerce, 75000 Paris<br />
-            Email : contact@ecommerce.fr<br />
+            Email : contact@fitgear.fr<br />
             Tél : 01 23 45 67 89
           </address>
         </section>
