@@ -1,4 +1,4 @@
-const BASE_URL = 'https://localhost:8000/api';
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api`;
 
 export const fetchProducts = async () => {
   const res = await fetch(`${BASE_URL}/products`);

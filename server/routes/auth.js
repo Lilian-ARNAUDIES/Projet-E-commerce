@@ -24,7 +24,7 @@ router.post('/account/forgot-password', async (req, res) => {
       [userId, token, expiresAt]
     );
 
-    const resetUrl = `https://localhost:3000/account/reset-password?token=${token}`;
+    const resetUrl = `${process.env.CLIENT_URL}/account/reset-password?token=${token}`;
 
     const transporter = nodemailer.createTransport({
       host: 'in-v3.mailjet.com',

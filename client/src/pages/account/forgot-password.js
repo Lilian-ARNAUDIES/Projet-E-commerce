@@ -7,7 +7,7 @@ export default function ForgotPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('https://localhost:8000/api/account/forgot-password', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/account/forgot-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),

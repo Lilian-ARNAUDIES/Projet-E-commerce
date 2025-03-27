@@ -20,7 +20,7 @@ export default function Products() {
       const formData = new FormData();
       formData.append('image', imageFileRef.current.files[0]);
       const uploadRes = await axiosAuthInstance.post('/api/admin/images', formData);
-      imagePath = `https://localhost:8000/uploads/${uploadRes.data?.data?.filename}`;
+      imagePath = `${process.env.NEXT_PUBLIC_API_URL}/uploads/${uploadRes.data?.data?.filename}`;
     }
 
     if (editingProduct) {
