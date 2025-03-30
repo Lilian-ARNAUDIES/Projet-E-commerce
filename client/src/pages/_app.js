@@ -16,7 +16,17 @@ export default function MyApp({ Component, pageProps }) {
         <meta name="author" content="Lilian Arnaudies" />
         <meta name="robots" content="index, follow" />
         <meta name="keywords" content="musculation, fitness, haltères, matériel de sport, poids, machine, entraînement" />
-
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-WBYK81WGWG"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-WBYK81WGWG');
+            `,
+          }}
+        />
         <script src="/tarteaucitron/tarteaucitron.js"></script>
         <script dangerouslySetInnerHTML={{
           __html: `
