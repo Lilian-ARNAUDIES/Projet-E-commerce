@@ -4,18 +4,18 @@ export default function Home() {
   const [categoryProducts, setCategoryProducts] = useState([]);
   
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/categories`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`)
       .then(res => res.json())
       .then(categories => {
         const haltereCat = categories.find(cat => cat.name.toLowerCase() === 'haltères');
         if (!haltereCat) return;
         const haltereCatId = haltereCat.id;
  
-          return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/products`)
+          return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`)
           .then(res => res.json())
           .then(products => {
             const filtered = products.filter(p => p.category_id === haltereCatId);
-            setCategoryProducts(filtered);
+            setCategoryProducts(filtered.slice(0, 8));
           });
       })
       .catch(console.error);
