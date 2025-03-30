@@ -7,7 +7,7 @@ export default function Home() {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/categories`)
       .then(res => res.json())
       .then(categories => {
-        const haltereCat = categories.find(cat => cat.name.toLowerCase() === 'haltère');
+        const haltereCat = categories.find(cat => cat.name.toLowerCase() === 'haltères');
         if (!haltereCat) return;
         const haltereCatId = haltereCat.id;
  
@@ -40,7 +40,7 @@ export default function Home() {
       </div>
 
       <div className="container py-5">
-        <h2 className="text-center mb-4">Nos équipements de la catégorie haltère</h2>
+        <h2 className="text-center mb-4">Nos équipements de la catégorie haltères</h2>
         <div className="row">
           {categoryProducts.map((product) => (
             <div className="col-12 col-sm-6 col-lg-3 mb-4" key={product.id}>
