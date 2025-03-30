@@ -26,7 +26,7 @@ export default function Home() {
       {/* Hero section full height */}
       <div className="position-relative w-100" style={{ height: '90vh' }}>
         <img
-          src="/images/background-image.png"
+          src="/images/background-image.webp"
           className="w-100 h-100 position-absolute top-0 start-0 object-fit-cover"
           alt="Home gym hero"
         />

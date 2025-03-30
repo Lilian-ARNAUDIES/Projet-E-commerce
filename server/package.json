@@ -5,10 +5,11 @@
   "scripts": {
     "start": "HTTPS=true SSL_CRT_FILE=./certs/server.crt SSL_KEY_FILE=./certs/server.key react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject",
     "dev": "nodemon server.js"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -26,12 +27,13 @@
     "jsonwebtoken": "^9.0.2",
     "node-gyp": "^11.0.0",
     "nodemailer": "^6.10.0",
-    "pg": "^8.13.1",
+    "pg": "^8.14.1",
     "sharp": "^0.33.5",
     "stripe": "^17.6.0",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "nodemon": "^3.1.9"
   }
 }
