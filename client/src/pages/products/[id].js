@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Head from 'next/head';
 import { fetchProductById, addToCart, getUserAccount } from '../../utils/api';
 import { getSessionId } from '../../utils/session';
 
@@ -55,25 +56,36 @@ export default function ProductDetail() {
   if (!product) return <p>Chargement...</p>;
  
   return (
-    <div className="container py-5">
-      <div className="row g-5 align-items-center">
-        <div className="col-md-6 text-center">
-          <img
-            src={`/uploads/${product.image}`}
-            alt={product.name}
-            className="img-fluid rounded shadow"
-            style={{ maxHeight: '500px', objectFit: 'cover' }}
-          />
-        </div>
-        <div className="col-md-6">
-          <h1 className="mb-3">{product.name}</h1>
-          <p className="text-muted mb-4">{product.description}</p>
-          <h3 className="text-primary mb-4">{product.price} €</h3>
-          <button className="btn btn-lg btn-secondary" onClick={handleAddToCart}>
-            Ajouter au panier
-          </button>
+    <>
+      <Head>
+        <title>{product.name} | Boutique FitGear</title>
+        <meta name="description" content={`Achetez ${product.name} au meilleur prix sur FitGear. ${product.description?.substring(0, 150)}...`} />
+        <meta property="og:title" content={`${product.name} | Boutique FitGear`} />
+        <meta property="og:description" content={`Achetez ${product.name} au meilleur prix sur FitGear.`} />
+        <meta property="og:image" content={`https://www.arnaudies-lilian.work/uploads/${product.image}`} />
+        <meta property="og:url" content={`https://www.arnaudies-lilian.work/products/${product.id}`} />
+        <meta property="og:type" content="product" />
+      </Head>
+      <div className="container py-5">
+        <div className="row g-5 align-items-center">
+          <div className="col-md-6 text-center">
+            <img
+              src={`/uploads/${product.image}`}
+              alt={product.name}
+              className="img-fluid rounded shadow"
+              style={{ maxHeight: '500px', objectFit: 'cover' }}
+            />
+          </div>
+          <div className="col-md-6">
+            <h1 className="mb-3">{product.name}</h1>
+            <p className="text-muted mb-4">{product.description}</p>
+            <h3 className="text-primary mb-4">{product.price} €</h3>
+            <button className="btn btn-lg btn-secondary" onClick={handleAddToCart}>
+              Ajouter au panier
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -9,7 +9,6 @@
     "eject": "react-scripts eject",
     "dev": "nodemon server.js"
   },
-  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",

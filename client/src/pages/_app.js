@@ -6,11 +6,17 @@ import Navbar from '../components/navbar';
 import Footer from '../components/footer';
 
 export default function MyApp({ Component, pageProps }) {
-  
-
   return (
     <div className="d-flex flex-column min-vh-100">
       <Head>
+        <title>Boutique FitGear - Matériel, Haltères, Machines</title>
+        <meta name="description" content="Boutique spécialisée en matériel de musculation : haltères, poids, machines et équipements professionnels. Livraison rapide et service client réactif." />
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="author" content="Lilian Arnaudies" />
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content="musculation, fitness, haltères, matériel de sport, poids, machine, entraînement" />
+
         <script src="/tarteaucitron/tarteaucitron.js"></script>
         <script dangerouslySetInnerHTML={{
           __html: `
