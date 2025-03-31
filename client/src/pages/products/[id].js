@@ -70,7 +70,7 @@ export default function ProductDetail() {
         <div className="row g-5 align-items-center">
           <div className="col-md-6 text-center">
             <img
-              src={`/uploads/${product.image}`}
+              src={`${product.image}`}
               alt={product.name}
               className="img-fluid rounded shadow"
               style={{ maxHeight: '500px', objectFit: 'cover' }}
