@@ -12,6 +12,11 @@ export default function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    
+    if (password.length < 8) {
+      setError('Le mot de passe doit contenir au moins 8 caractères.');
+      return;
+    }
 
     const { success, token } = await registerUser(firstname, lastname, email, password);
 

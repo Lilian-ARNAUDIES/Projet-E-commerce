@@ -17,8 +17,8 @@ export default function ResetPassword() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!token || password.length < 6) {
-      setMessage("Le mot de passe doit contenir au moins 6 caractères.");
+    if (!token || password.length < 8) {
+      setMessage("Le mot de passe doit contenir au moins 8 caractères.");
       return;
     }
 
