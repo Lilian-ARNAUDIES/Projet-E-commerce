@@ -46,7 +46,7 @@ export default function Home() {
             <div className="col-12 col-sm-6 col-lg-3 mb-4" key={product.id}>
               <div className="card h-100">
                 <img
-                  src={`/uploads/${product.image}`}
+                  src={`${product.image}`}
                   className="card-img-top"
                   alt={product.name}
                 />
