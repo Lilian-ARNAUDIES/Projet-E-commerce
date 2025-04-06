@@ -34,7 +34,7 @@ export const isAuthenticated = () => {
 export const logout = () => {
   localStorage.removeItem('authToken');
   localStorage.removeItem('userRole'); // On supprime aussi le rôle au logout
-  window.location.reload();
+  window.location.href = '';
 };
 
 export async function registerUser(lastname, firstname, email, password) {
@@ -103,7 +103,7 @@ export const loginUser = async (email, password) => {
     const data = await res.json();
     localStorage.setItem('authToken', data.token); // Stocker le token
     localStorage.setItem('userRole', data.user.role); // Stocker le rôle de l’utilisateur
-    window.location.reload();
+    window.location.href = '/account';
 
     return { success: true, role: data.user.role };
   } catch (err) {
