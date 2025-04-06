@@ -2,12 +2,13 @@ import { useEffect, useState, useRef } from 'react';
 import { axiosAuthInstance } from '../../utils/auth';
 import AdminLayout from '../../layouts/AdminLayout';
 import { Table, Pagination, Form, Button, Modal } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 5;
+  const productsPerPage = 15;
 
   const [showModal, setShowModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -75,7 +76,8 @@ export default function Products() {
         setNewProduct({ name: '', price: '', stock: '', description: '', image: '', category_id: '' });
         setShowModal(true);
       }}>Ajouter un produit</Button>
-      <Table striped bordered hover>
+      <div className="table-responsive">
+        <Table striped bordered hover>
         <thead>
           <tr>
             <th>ID</th>
@@ -97,24 +99,30 @@ export default function Products() {
               <td>{categories.find(c => c.id === product.category_id)?.name || '—'}</td>
               <td><img src={product.image} alt={product.name} style={{ width: '50px', height: '50px' }} /></td>
               <td>
-                <Button variant="warning" size="sm" onClick={() => {
-                  setEditingProduct(product);
-                  setNewProduct({
-                    name: product.name,
-                    price: product.price,
-                    stock: product.stock,
-                    description: product.description,
-                    category_id: product.category_id || '',
-                    image: product.image
-                  });
-                  setShowModal(true);
-                }}>Modifier</Button>
-                <Button variant="danger" size="sm" className="ms-2" onClick={() => handleDelete(product.id)}>Supprimer</Button>
+                <Dropdown>
+                  <Dropdown.Toggle variant="secondary" size="sm">Actions</Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => {
+                      setEditingProduct(product);
+                      setNewProduct({
+                        name: product.name,
+                        price: product.price,
+                        stock: product.stock,
+                        description: product.description,
+                        category_id: product.category_id || '',
+                        image: product.image
+                      });
+                      setShowModal(true);
+                    }}>Modifier</Dropdown.Item>
+                    <Dropdown.Item className="text-danger" onClick={() => handleDelete(product.id)}>Supprimer</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
+      </div>
 
       {/* Pagination */}
       <Pagination>
@@ -170,6 +178,25 @@ export default function Products() {
           <Button variant="primary" onClick={handleSave}>Sauvegarder</Button>
         </Modal.Footer>
       </Modal>
+      <style jsx>{`
+        @media (max-width: 576px) {
+          .container, .admin-container {
+            padding-left: 10px;
+            padding-right: 10px;
+          }
+
+          table input[type="number"],
+          table select,
+          table button {
+            width: 100%;
+            min-width: 50px;
+          }
+
+          h1, h3 {
+            font-size: 1.4rem;
+          }
+        }
+      `}</style>
     </AdminLayout>
   );
 }

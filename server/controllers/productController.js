@@ -40,7 +40,8 @@ exports.createProduct = async (req, res, next) => {
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
-    next(err);
+    console.error("Erreur createProduct :", err);
+    res.status(500).json({ message: 'Erreur serveur lors de la création du produit.' });
   }
 };
 

@@ -75,11 +75,13 @@ export default function Cart() {
   }, [totalCart]);
   
   return (
+    <>
     <div className="container">
       <h1>Mon Panier</h1>
       {cart.length > 0 ? (
         <>
-          <table className="table table-striped">
+          <div className="table-responsive">
+            <table className="table table-striped">
             <thead>
               <tr>
                 <th>Produit</th>
@@ -118,6 +120,7 @@ export default function Cart() {
               ))}
             </tbody>
           </table>
+          </div>
           <h3>Total Panier : {totalCart.toFixed(2)} €</h3>
           <CheckoutButton cartItems={cart} />
         </>
@@ -125,5 +128,23 @@ export default function Cart() {
         <p>Votre panier est vide.</p>
       )}
     </div>
-  );
+    <style jsx>{`
+      @media (max-width: 576px) {
+        .container {
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+
+        table input[type="number"] {
+          width: 100%;
+          min-width: 50px;
+        }
+
+        h1, h3 {
+          font-size: 1.5rem;
+        }
+      }
+    `}</style>
+    </>
+    );
 }

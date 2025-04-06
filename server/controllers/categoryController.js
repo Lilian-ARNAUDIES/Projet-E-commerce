@@ -6,11 +6,16 @@ exports.getCategories = async (req, res) => {
 };
 
 exports.createCategory = async (req, res) => {
-  const { name } = req.body;
-  if (!name) return res.status(400).json({ message: 'Nom requis' });
-
-  const result = await db.query('INSERT INTO categories (name) VALUES ($1) RETURNING *', [name]);
-  res.status(201).json(result.rows[0]);
+  try {
+    const { name } = req.body;
+    if (!name) return res.status(400).json({ message: 'Nom requis' });
+  
+    const result = await db.query('INSERT INTO categories (name) VALUES ($1) RETURNING *', [name]);
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error("Erreur createCategory :", error);
+    res.status(500).json({ message: 'Erreur serveur lors de la création de la catégorie.' });
+  }
 };
  
 exports.updateCategory = async (req, res) => {

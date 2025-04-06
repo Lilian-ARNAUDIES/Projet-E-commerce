@@ -16,12 +16,12 @@ export default function LegalFooter() {
           </Col>
 
           <Col md={4} className="mb-4">
-            <h5>Service client</h5>
-            <ul className="list-unstyled">
-              <li><Link href="service-client/contact" className="text-white text-decoration-none">Contact</Link></li>
-              <li><Link href="service-client/faq" className="text-white text-decoration-none">FAQ</Link></li>
-              <li><Link href="service-client/retours" className="text-white text-decoration-none">Retours et échanges</Link></li>
-            </ul>
+          <h5>Service client</h5>
+          <ul className="list-unstyled">
+            <li>Contact</li>
+            <li>FAQ</li>
+            <li>Retours et échanges</li>
+          </ul>
           </Col>
 
           <Col md={4} className="mb-4">

@@ -94,27 +94,39 @@ exports.checkoutCart = async (req, res, next) => {
   const client = await db.connect();
   try {
     await client.query('BEGIN');
-    const { userId } = req.body;
+    const { userId, sessionId } = req.body;
+    console.log('[checkoutCart] Reçu :', { userId, sessionId });
 
-    // 1. Récupérer tous les items du panier de l'utilisateur avec le prix
-    const cartItemsResult = await client.query(
-      'SELECT c.*, p.price FROM cart c JOIN products p ON c.product_id = p.id WHERE c.user_id = $1',
-      [userId]
-    );
+    if (!userId && !sessionId) {
+      await client.query('ROLLBACK');
+      return res.status(400).json({ message: 'User ID or session ID required' });
+    }
+
+    let cartItemsResult;
+    if (userId) {
+      cartItemsResult = await client.query(
+        'SELECT c.*, p.price FROM cart c JOIN products p ON c.product_id = p.id WHERE c.user_id = $1',
+        [userId]
+      );
+    } else {
+      cartItemsResult = await client.query(
+        'SELECT c.*, p.price FROM cart c JOIN products p ON c.product_id = p.id WHERE c.session_id = $1::uuid',
+        [sessionId]
+      );
+    }
+
     const cartItems = cartItemsResult.rows;
-
+    console.log('[checkoutCart] Panier récupéré :', cartItems.length, 'articles');
     if (cartItems.length === 0) {
       await client.query('ROLLBACK');
       return res.status(400).json({ message: 'Cart is empty' });
     }
 
-    // 2. Calculer le prix total de la commande
     let totalPrice = 0;
     for (const item of cartItems) {
       totalPrice += item.price * item.quantity;
     }
 
-    // 3. Vérifier le stock pour chaque produit
     for (const item of cartItems) {
       const productResult = await client.query('SELECT stock FROM products WHERE id = $1', [item.product_id]);
       if (productResult.rows.length === 0 || productResult.rows[0].stock < item.quantity) {
@@ -123,14 +135,12 @@ exports.checkoutCart = async (req, res, next) => {
       }
     }
 
-    // 4. Créer une nouvelle commande en incluant le prix total
     const orderResult = await client.query(
-      'INSERT INTO orders (user_id, total_price, status) VALUES ($1, $2, $3) RETURNING *',
-      [userId, totalPrice, 'pending']
+      'INSERT INTO orders (user_id, session_id, total_price, status) VALUES ($1, $2, $3, $4) RETURNING *',
+      [userId || null, sessionId || null, totalPrice, 'pending']
     );
     const orderId = orderResult.rows[0].id;
 
-    // 5. Insérer les items du panier dans order_items et mettre à jour le stock
     for (const item of cartItems) {
       await client.query(
         'INSERT INTO order_items (order_id, product_id, quantity) VALUES ($1, $2, $3)',
@@ -142,13 +152,17 @@ exports.checkoutCart = async (req, res, next) => {
       );
     }
 
-    // 6. Vider le panier
-    await client.query('DELETE FROM cart WHERE user_id = $1', [userId]);
+    if (userId) {
+      await client.query('DELETE FROM cart WHERE user_id = $1', [userId]);
+    } else {
+      await client.query('DELETE FROM cart WHERE session_id = $1::uuid', [sessionId]);
+    }
 
     await client.query('COMMIT');
-    res.json({ message: 'Checkout successful', orderId });
+    res.json({ message: 'Checkout successful', orderId, totalPrice });
   } catch (err) {
     await client.query('ROLLBACK');
+    console.error('Erreur dans checkoutCart:', err);
     next(err);
   } finally {
     client.release();

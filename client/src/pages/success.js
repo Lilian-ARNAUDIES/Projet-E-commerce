@@ -11,24 +11,30 @@ export default function Success() {
   useEffect(() => {
     async function finalizeOrder() {
       try {
-        let userId;
+        let userId = null;
+        let sessionId = null;
         try {
           const user = await getUserAccount();
           userId = user.id;
         } catch (err) {
-          userId = getSessionId();
+          sessionId = getSessionId();
         }
 
         // 🔥 Récupération du total price depuis `localStorage`
         const storedTotalPrice = localStorage.getItem('totalPrice');
         const totalPriceValue = storedTotalPrice ? parseFloat(storedTotalPrice) : 0;
         setTotalPrice(totalPriceValue); // 🔥 Stocker dans le state
+        console.log('Envoi de la commande avec :', userId || sessionId, totalPriceValue);
 
         // 🔥 Envoyer le total price au serveur
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/cart/checkout`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId, totalPrice: totalPriceValue }), // On envoie `totalPrice`
+          body: JSON.stringify(
+            userId
+              ? { userId, totalPrice: totalPriceValue }
+              : { sessionId, totalPrice: totalPriceValue }
+          ),
         });
 
         const data = await res.json();

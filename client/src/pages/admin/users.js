@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { axiosAuthInstance } from '../../utils/auth';
 import AdminLayout from '../../layouts/AdminLayout';
 import { Table, Pagination, Button, Modal, Form } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 
 export default function Users() {
   const [users, setUsers] = useState([]);
@@ -57,6 +58,7 @@ export default function Users() {
   return (
     <AdminLayout>
       <h1>Gestion des utilisateurs</h1>
+      <div className="table-responsive">
       <Table striped bordered hover className="mt-3">
         <thead>
           <tr>
@@ -77,23 +79,28 @@ export default function Users() {
               <td>{user.email}</td>
               <td>{user.role}</td>
               <td>
-                <Button variant="warning" size="sm" 
-                  onClick={() => {
-                    setEditingUser(user);
-                    setNewUser({
-                      firstname: user.firstname,
-                      lastname: user.lastname,
-                      email: user.email,
-                      role: user.role
-                    });
-                    setShowModal(true);
-                  }}>Modifier</Button>
-                <Button variant="danger" size="sm" className="ms-2" onClick={() => handleDelete(user.id)}>Supprimer</Button>
+                <Dropdown>
+                  <Dropdown.Toggle variant="secondary" size="sm">Actions</Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => {
+                      setEditingUser(user);
+                      setNewUser({
+                        firstname: user.firstname,
+                        lastname: user.lastname,
+                        email: user.email,
+                        role: user.role
+                      });
+                      setShowModal(true);
+                    }}>Modifier</Dropdown.Item>
+                    <Dropdown.Item className="text-danger" onClick={() => handleDelete(user.id)}>Supprimer</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
+      </div>
 
       <Pagination>
         {[...Array(Math.ceil(users.length / usersPerPage)).keys()].map(number => (
@@ -148,6 +155,25 @@ export default function Users() {
           <Button variant="primary" onClick={handleSave}>Sauvegarder</Button>
         </Modal.Footer>
       </Modal>
+      <style jsx>{`
+        @media (max-width: 576px) {
+          .container, .admin-container {
+            padding-left: 10px;
+            padding-right: 10px;
+          }
+
+          table input[type="number"],
+          table select,
+          table button {
+            width: 100%;
+            min-width: 50px;
+          }
+
+          h1, h3 {
+            font-size: 1.4rem;
+          }
+        }
+      `}</style>
     </AdminLayout>
   );
 }

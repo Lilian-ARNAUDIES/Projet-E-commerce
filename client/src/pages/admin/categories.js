@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { axiosAuthInstance } from '../../utils/auth';
 import AdminLayout from '../../layouts/AdminLayout';
 import { Table, Pagination, Form, Button, Modal } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
@@ -26,12 +27,13 @@ export default function Categories() {
       if (editingCategory) {
         await axiosAuthInstance.put(`/api/admin/categories/${editingCategory.id}`, newCategory);
       } else {
-        await axiosAuthInstance.post('/api/admin/categories', newCategory);
+      await axiosAuthInstance.post('/api/admin/categories', newCategory);
       }
       fetchCategories();
       setShowModal(false);
     } catch (error) {
-      console.error("❌ Erreur sauvegarde catégorie :", error);
+      console.error("❌ Erreur sauvegarde catégorie :", error.response?.data || error.message);
+      alert("Une erreur est survenue lors de la sauvegarde de la catégorie.");
     }
   };
 
@@ -77,12 +79,17 @@ export default function Categories() {
               <td>{cat.id}</td>
               <td>{cat.name}</td>
               <td>
-                <Button variant="warning" size="sm" onClick={() => {
-                  setEditingCategory(cat);
-                  setNewCategory({ name: cat.name });
-                  setShowModal(true);
-                }}>Modifier</Button>
-                <Button variant="danger" size="sm" className="ms-2" onClick={() => handleDelete(cat.id)}>Supprimer</Button>
+                <Dropdown>
+                  <Dropdown.Toggle variant="secondary" size="sm">Actions</Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => {
+                      setEditingCategory(cat);
+                      setNewCategory({ name: cat.name });
+                      setShowModal(true);
+                    }}>Modifier</Dropdown.Item>
+                    <Dropdown.Item className="text-danger" onClick={() => handleDelete(cat.id)}>Supprimer</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </td>
             </tr>
           ))}
