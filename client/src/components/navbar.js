@@ -67,6 +67,11 @@ export default function AppNavbar() {
             <Nav.Link as={Link} href="/products" className="text-white fw-semibold">
               Produits
             </Nav.Link>
+            {isClient && isAuthenticated() && userRole === 'admin' && (
+              <Nav.Link as={Link} href="/admin/dashboard" className="text-warning fw-bold d-lg-none">
+                Admin
+              </Nav.Link>
+            )}
           </Nav>
 
           <Nav className="d-none d-lg-flex align-items-center">

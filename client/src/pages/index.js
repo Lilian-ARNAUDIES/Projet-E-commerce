@@ -53,7 +53,7 @@ export default function Home() {
                 <div className="card-body text-center">
                   <h5 className="card-title">{product.name}</h5>
                   <p className="card-text">{product.description}</p>
-                  <a href={`/products/${product.id}`} className="btn btn-outline-primary">Voir</a>
+                  <a href={`/products/${product.id}`} className="btn btn-outline-primary">Voir le produit</a>
                 </div>
               </div>
             </div>
